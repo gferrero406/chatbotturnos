@@ -4,6 +4,12 @@ const formulario = document.getElementById("chatForm");
 
 const input = document.getElementById("pregunta");
 
+let sessionId = localStorage.getItem("sessionId");
+if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    localStorage.setItem("sessionId", sessionId);
+}
+
 formulario.addEventListener("submit", async (e)=>{
 
     e.preventDefault();
@@ -44,8 +50,8 @@ function agregarMensaje(tipo,texto,claseExtra=""){
 
     async function obtenerRespuesta(pregunta){
 
-    const response = await fetch(
-        "https://hook.us2.make.com/ha32a0yg6ix399z1yeiwct3f1exkq2o9",
+    const response = await fetch(        
+        "https://hook.us2.make.com/nkpn4m78mhh8mng8dimmdoii5l4vel9l",
         {
 
             method:"POST",
@@ -54,9 +60,10 @@ function agregarMensaje(tipo,texto,claseExtra=""){
                 "Content-Type":"application/json"
             },
 
-            body:JSON.stringify({
-                pregunta:pregunta
-            })
+            body: JSON.stringify({
+                pregunta: pregunta,
+                sessionId: sessionId
+})
 
         });
 
